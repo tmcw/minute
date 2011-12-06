@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <link href='css/reset.css' rel='stylesheet' type='text/css' />
+    <link href='css/colorbrewer.css' rel='stylesheet' type='text/css' />
+    <style type='text/css'>
+      body {
+        font: 11px/20px "Droid Sans Mono", monospace;
+      }
+      rect.strokes {
+        fill:#a50f15;
+      }
+      text {
+        fill:#fff;
+      }
+
+      #keystrokes {
+        padding:10px;
+        width:100px;
+      }
+
+      #keystrokes h4 {
+        text-transform:uppercase;
+        letter-spacing:3.5px;
+        border-top:1px solid #333;
+      }
+    </style>
+    <title>hi how are you?</title>
+  </head>
+  <body>
+    <div id='keystrokes'>
+      <h4>keystrokes</h4>
+      <div id='keystrokes-canvas'></div>
+    </div>
+    <script type="text/javascript" src="js/d3.js"></script>
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/d3.csv.js"></script>
+    <script type='text/javascript'>
+      var w = 100,
+          h = 600;
+
+      var chart = d3.select('#keystrokes-canvas').append("svg:svg")
+        .attr('width', w)
+        .attr('class', 'Blues')
+        .attr('height', h);
+
+      function mtotxt(m) {
+        var min = parseInt(m),
+            h = Math.floor(min / 60);
+        if (h > 12) h -= 12;
+        if (('' + (min % 60)).length == 2) {
+          return h + ':' + (min % 60);
+        } else {
+          return h + ':0' + (min % 60);
+        }
+      }
+
+      d3.csv("keystrokes.log", function(csv) {
+          csv = csv.map(function(c) {
+            return {
+              minutes: parseInt(c.minutes),
+              strokes: parseInt(c.strokes)
+              }});
+
+          var color = d3.scale.quantize()
+          .domain([d3.min(csv, function(d) { return d.strokes }), d3.max(csv, function(d) { return d.strokes })])
+           .range(d3.range(9));
+
+          chart.selectAll('rect')
+            .data(csv)
+          .enter().append('svg:rect')
+            .attr('class', 'strokes')
+            .attr('class', function(d) { return 'day q' + color(d.strokes) + '-9'; })
+            .attr('y', function(d, i) { return i * 3; })
+            .attr('x', 20)
+            .attr('width', 100)
+            .attr('height', 2);
+      });
+    </script>
+  </body>
+</html>
