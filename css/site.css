@@ -1,0 +1,62 @@
+body {
+  font: 11px/20px "Helvetica Neue", sans-serif;
+}
+
+#headlines {
+  padding:10px;
+}
+
+#headlines a {
+  padding:10px;
+  text-decoration:none;
+  color:#222;
+}
+
+#headlines a span {
+  color:#666;
+  padding:0 10px 0 0;
+}
+
+#headlines a:hover {
+  color:#000;
+  text-decoration:underline;
+}
+
+rect.tick-container {
+  fill:#fff;
+}
+
+rect.hour-label {
+  fill:#ddd;
+}
+
+rect.tick-container text {
+  fill:#333;
+}
+
+rect.strokes {
+  fill:#a50f15;
+}
+text {
+  font: 10px/20px "Droid Sans Mono", monospace;
+}
+text.day-label {
+  fill:#fff;
+  font-weight:bold;
+}
+
+#keystrokes {
+  font: 11px/20px "Droid Sans Mono", monospace;
+  padding:10px;
+  width:100px;
+}
+
+#keystrokes h4 {
+  text-transform:uppercase;
+  letter-spacing:3.5px;
+  border-top:1px solid #333;
+}
+
+rect.commit {
+  fill:#c40a7f;
+}
