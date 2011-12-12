@@ -1,4 +1,7 @@
 body {
+  margin:0;
+  padding:0;
+  background:url('lightnoise.png');
   font: 11px/20px "Helvetica Neue", sans-serif;
 }
 
@@ -26,7 +29,7 @@ rect.tick-container {
   fill:#fff;
 }
 
-rect.hour-label, rect.day-line {
+rect.hour-label, rect.day-line, rect.day-line-right {
   fill:#eee;
 }
 
@@ -41,13 +44,11 @@ text {
   font: 10px/20px "Droid Sans Mono", monospace;
 }
 text.day-label {
-  fill:#fff;
+  fill:#8ec1dd;
 }
 
 #keystrokes {
   font: 11px/20px "Droid Sans Mono", monospace;
-  padding:10px;
-  width:100px;
 }
 
 #keystrokes h4 {
@@ -59,3 +60,9 @@ text.day-label {
 rect.commit {
   fill:#c40a7f;
 }
+
+text.hover {
+  font: 11px/20px "Helvetica Neue", sans-serif;
+  fill:#fff;
+}
+

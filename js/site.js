@@ -4,7 +4,7 @@ var w = 300,
 var chart = d3.select('#keystrokes-canvas').append("svg:svg")
   .attr('width', 500)
   .attr('class', 'Blues')
-  .attr('height', 640);
+  .attr('height', 700);
 
 var day_format = d3.time.format('%a');
 var full_format = d3.time.format('%I:%M %p %m/%d/%y');
@@ -42,24 +42,17 @@ $(function() {
       .attr('class', 'day-label');
 
     daylabels
-      .append('svg:circle')
-      .attr('class', 'day-label')
-      .attr('cx', function(d, i) { return 38 + (i * 80); })
-      .attr('cy', function(d, i) { return 26; })
-      .attr('r', 20);
-
-    daylabels
       .append('svg:text')
       .attr('class', 'day-label')
-      .attr('y', function(d, i) { return 30; })
       .attr('x', function(d, i) { return 28 + (i * 80); })
+      .attr('y', function(d, i) { return 40; })
       .text(function(d) { return day_format(d); });
 
    daylabels
       .append('svg:rect')
       .attr('class', 'day-line')
-      .attr('y', function(d, i) { return 80; })
-      .attr('x', function(d, i) { return 20 + (i * 80); })
+      .attr('y', function(d, i) { return 60; })
+      .attr('x', function(d, i) { return 14 + (i * 80); })
       .attr('height', h)
       .attr('width', 1);
 
@@ -79,9 +72,9 @@ $(function() {
         .attr('height', 1)
         .attr('width', w)
         .attr('y', function(d, i) {
-            return ~~((d3.time.hour(d).getHours() / 24) * h) + 80; })
+            return ~~((d3.time.hour(d).getHours() / 24) * h) + 60; })
         .attr('x', function(d, i) {
-              return 20;
+              return 15;
         });
 
     var color = d3.scale.quantize()
@@ -102,22 +95,34 @@ $(function() {
           d3.time.day(d.d),
           d3.time.day(new Date(+d.d + 24*60*60*1000))
         ]);
-        return (s(d.d) * h) + 80;
+        return (s(d.d) * h) + 60;
       })
       .attr('x', function(d) {
-          return (wkscale(d3.time.day(d.d)) * 80) + 20;
+          return (wkscale(d3.time.day(d.d)) * 80) + 15;
       })
-      .attr('width', 50)
+      .attr('width', 70)
       .attr('height', 1)
       .on('mouseover', function(d) {
+        var x = (wkscale(d3.time.day(d.d)) * 80) + 90;
+        d3.select(this).attr('width', 90);
+        d3.select(this).attr('height', 5);
+        chart.append('svg:rect')
+          .attr('class', 'hover-number q' + color(d.strokes) + '-9')
+          .attr('width', 140)
+          .attr('height', 20)
+          .attr('x', x)
+          .attr('y', function() { return d3.event.y - 9; });
         chart.append('svg:text')
           .attr('class', 'hover')
-          .text(d.strokes + ' @ ' + full_format(d.d))
-          .attr('x', function() { return d3.event.x + 40; })
-          .attr('y', function() { return d3.event.y; });
+          .text(d.strokes + ' ' + full_format(d.d))
+          .attr('x', x + 5)
+          .attr('y', function() { return d3.event.y + 5; });
       })
       .on('mouseout', function(d) {
+        d3.select(this).attr('width', 70);
+        d3.select(this).attr('height', 1);
         chart.selectAll('text.hover').remove();
+        chart.selectAll('rect.hover-number').remove();
       });
 
       $.ajax('https://api.github.com/users/tmcw/events?callback=test', {
@@ -144,7 +149,7 @@ $(function() {
                   return (wkscale(d3.time.day(d.d)) * 80) + 10;
               })
               .attr('width', 4)
-              .attr('height', 4)
+              .attr('height', 2)
               .on('click', function(d) {
                   window.location = d.repo.url;
               });
