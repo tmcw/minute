@@ -26,8 +26,8 @@ rect.tick-container {
   fill:#fff;
 }
 
-rect.hour-label {
-  fill:#ddd;
+rect.hour-label, rect.day-line {
+  fill:#eee;
 }
 
 rect.tick-container text {
@@ -42,7 +42,6 @@ text {
 }
 text.day-label {
   fill:#fff;
-  font-weight:bold;
 }
 
 #keystrokes {

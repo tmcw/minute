@@ -1,8 +1,8 @@
-var w = 800,
+var w = 300,
     h = 500;
 
 var chart = d3.select('#keystrokes-canvas').append("svg:svg")
-  .attr('width', w)
+  .attr('width', 500)
   .attr('class', 'Blues')
   .attr('height', 640);
 
@@ -29,14 +29,14 @@ $(function() {
       d3.max(csv, function(d) { return d.d; })
     ]);
 
-    var wkscale = d3.time.scale().domain([
+    var wkscale = d3.scale.quantize().domain([
       d3.min(csv, function(d) { return d3.time.day(d.d); }),
       d3.max(csv, function(d) { return d3.time.day(d.d); })
-    ]).range([0, 1]);
+    ]);
 
     // TODO: deal with non-array
     var daylabels = chart.selectAll('g.day-label')
-      .data(dscale.ticks(d3.time.days, 1))
+      .data(dscale.domain())
       .enter()
       .append('svg:g')
       .attr('class', 'day-label');
@@ -44,7 +44,7 @@ $(function() {
     daylabels
       .append('svg:circle')
       .attr('class', 'day-label')
-      .attr('cx', function(d, i) { return 38 + (i * 100); })
+      .attr('cx', function(d, i) { return 38 + (i * 80); })
       .attr('cy', function(d, i) { return 26; })
       .attr('r', 20);
 
@@ -52,22 +52,24 @@ $(function() {
       .append('svg:text')
       .attr('class', 'day-label')
       .attr('y', function(d, i) { return 30; })
-      .attr('x', function(d, i) { return 28 + (i * 100); })
+      .attr('x', function(d, i) { return 28 + (i * 80); })
       .text(function(d) { return day_format(d); });
 
-      /*    var dscale = d3.time.scale().domain([
-      d3.min(csv, function(d) { return d.d; }),
-      d3.max(csv, function(d) { return d.d; })
-    ]);*/
+   daylabels
+      .append('svg:rect')
+      .attr('class', 'day-line')
+      .attr('y', function(d, i) { return 80; })
+      .attr('x', function(d, i) { return 20 + (i * 80); })
+      .attr('height', h)
+      .attr('width', 1);
 
     var hours = dscale.ticks(d3.time.days, 1).map(function(h) {
         var s = d3.time.scale().domain([
           d3.time.day(h),
-          d3.time.day(new Date(+h + 24*60*60*1000))
+          d3.time.day(new Date(+h + 24 * 60 * 60 * 1000))
         ]);
-        return s.ticks(d3.time.hours);
+        return s.ticks(d3.time.hours, 2);
     });
-
 
     chart.selectAll('rect.hour-label')
         .data(_.flatten(hours))
@@ -82,22 +84,13 @@ $(function() {
               return 20;
         });
 
-        /*
-    hrs.append('svg:text')
-        .attr('height', 1)
-        .attr('width', 50)
-        .attr('y', function(d, i) { return (~~(d[1] * h)) + 85; })
-        .attr('x', function(d, i) { return 0; })
-        .text(function(d) { return mtotxt(d); });
-        */
-
     var color = d3.scale.quantize()
       .domain([d3.min(csv, function(d) {
         return d.strokes;
       }), d3.max(csv, function(d) {
         return d.strokes;
       })])
-     .range(d3.range(9));
+     .range(d3.range(2, 9));
 
     chart.selectAll('rect.strokes')
       .data(csv)
@@ -112,8 +105,7 @@ $(function() {
         return (s(d.d) * h) + 80;
       })
       .attr('x', function(d) {
-          console.log(wkscale(d3.time.day(d.d)) * 100);
-          return (wkscale(d3.time.day(d.d)) * 300) + 20;
+          return (wkscale(d3.time.day(d.d)) * 80) + 20;
       })
       .attr('width', 50)
       .attr('height', 1)
@@ -149,7 +141,7 @@ $(function() {
                 return ~~(s(d.d) * h) + 80;
               })
               .attr('x', function(d) {
-                  return (wkscale(d3.time.day(d.d)) * 300) + 10;
+                  return (wkscale(d3.time.day(d.d)) * 80) + 10;
               })
               .attr('width', 4)
               .attr('height', 4)
