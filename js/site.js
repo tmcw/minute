@@ -199,7 +199,7 @@ function load() {
                   d3.time.day(d.d),
                   d3.time.day(new Date(+d.d + 24*60*60*1000))
                 ]);
-                return ~~(s(d.d) * w) + 15;
+                return ~~(s(d.d) * w);
               })
               .attr('y', function(d) {
                   return (wkscale(d3.time.day(d.d)) * TH) + 15;
