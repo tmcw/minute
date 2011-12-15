@@ -1,7 +1,7 @@
 body {
   margin:0;
   padding:0;
-  font: 11px/20px "Helvetica Neue", sans-serif;
+  font: 12px/20px "Helvetica Neue", sans-serif;
   background:url('lightnoise.png');
 }
 
@@ -16,11 +16,9 @@ rect.tick-container text {
 rect.strokes {
   fill:#a50f15;
 }
+
 text {
-  font: 11px/20px "Helvetica Neue", monospace;
-}
-text.day-label {
-  fill:#555;
+  font: bold 12px/20px "Helvetica Neue", monospace;
 }
 
 text.hour-label {
@@ -30,7 +28,7 @@ text.hour-label {
 }
 
 text.day-label {
-  fill:#fff;
+  fill:#000;
 }
 
 #keystrokes-canvas {
@@ -64,3 +62,11 @@ div.hover-number span.st {
   background:#333;
   color:#fff;
 }
+
+/*
+.Greys .q4-9{fill:rgb(251,106,74)}
+*/
+.Greys .q5-9{fill:rgb(239,59,44)}
+.Greys .q6-9{fill:rgb(203,24,29)}
+.Greys .q7-9{fill:rgb(165,15,21)}
+.Greys .q8-9{fill:rgb(103,0,13)}

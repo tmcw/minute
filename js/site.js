@@ -5,7 +5,7 @@ function load() {
 
   var chart = d3.select('#keystrokes-canvas').append("svg:svg")
     .attr('width', w)
-    .attr('class', 'Blues')
+    .attr('class', 'Greys')
     .attr('height', h);
 
   // tick height
@@ -174,7 +174,7 @@ function load() {
       .enter().append('svg:rect')
         .attr('class', 'dailystrokes')
         .attr('class', function(d) { return 'day q' + hrlycolor(d.strokes) + '-9'; })
-        .attr('x', 0)
+        .attr('x', 80)
         .attr('y', function(d) {
             return (wkscale(d3.time.day(d.d)) * TH);
         })
