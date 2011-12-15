@@ -67,13 +67,17 @@ function load() {
           d3.time.day(d.d),
           d3.time.day(new Date(+d.d + 24*60*60*1000))
         ]);
-        return (s(d.d) * w);
+        return (s(d3.time.hour(d.d)) * w);
       })
       .attr('y', function(d) {
-          return (wkscale(d.day) * TH) + 40;
+          var h = d3.time.scale().domain([
+            d3.time.hour(d.d),
+            d3.time.hour(new Date(+d.d + 60*60*1000))
+          ]);
+          return ~~((wkscale(d.day) * TH) + (h(d.d) * (TH - 40)) + 40);
       })
-      .attr('width', 1)
-      .attr('height', TH - 40)
+      .attr('width', ~~(w/24))
+      .attr('height', 2)
       .on('mouseover', function(d) {
         var h = d3.select(document.body).append('div')
           .attr('class', 'hover-number')
