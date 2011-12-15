@@ -2,28 +2,11 @@ body {
   margin:0;
   padding:0;
   font: 11px/20px "Helvetica Neue", sans-serif;
-  background:#222;
-}
-
-div#header {
-  text-indent:-2000px;
-  background: url('hhay.png');
-  width:740px;
-  opacity:0.2;
-  height:50px;
-  margin:20px auto 0 auto;
-}
-
-div#header:hover {
-  opacity:0.7;
+  background:url('lightnoise.png');
 }
 
 rect.tick-container {
   fill:#fff;
-}
-
-rect.hour-label, rect.day-line, rect.day-line-right {
-  fill:#eee;
 }
 
 rect.tick-container text {
@@ -34,17 +17,23 @@ rect.strokes {
   fill:#a50f15;
 }
 text {
-  font: 12px/20px "M+ mn", monospace;
+  font: 11px/20px "Helvetica Neue", monospace;
 }
-text.day-label, text.hour-label {
+text.day-label {
   fill:#555;
 }
 
+text.hour-label {
+  fill:#fff;
+  text-anchor:middle;
+  opacity:0.5;
+}
+
+text.day-label {
+  fill:#fff;
+}
+
 #keystrokes-canvas {
-  width:720px;
-  margin:0 auto;
-  padding:10px;
-  background:url('lightnoise.png');
 }
 
 #keystrokes h4 {
@@ -75,4 +64,3 @@ div.hover-number span.st {
   background:#333;
   color:#fff;
 }
-
