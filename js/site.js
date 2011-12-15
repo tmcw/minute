@@ -74,7 +74,7 @@ function load() {
             d3.time.hour(d.d),
             d3.time.hour(new Date(+d.d + 60*60*1000))
           ]);
-          return ~~((wkscale(d.day) * TH) + (h(d.d) * (TH - 40)) + 40);
+          return ~~((wkscale(d.day) * TH) + (h(d.d) * (TH - 20)) + 20);
       })
       .attr('width', ~~(w/24))
       .attr('height', 2)
@@ -150,10 +150,10 @@ function load() {
           return ~~(s(d.d) * w);
         })
         .attr('y', function(d) {
-            return (wkscale(d3.time.day(d.d)) * TH) + 20;
+            return (wkscale(d3.time.day(d.d)) * TH) + 10;
         })
         .attr('width', ~~(w / 24))
-        .attr('height', 20)
+        .attr('height', 15)
 
       chart.selectAll('text.hour-label')
         .data(hrly)
@@ -167,7 +167,7 @@ function load() {
           return (s(d.d) * w) + (w / 48);
         })
         .attr('y', function(d) {
-            return (wkscale(d3.time.day(d.d)) * TH) + 33;
+            return (wkscale(d3.time.day(d.d)) * TH) + 21;
         })
         .text(function(d) {
             return mtotxt(d.d);
@@ -183,7 +183,7 @@ function load() {
             return (wkscale(d3.time.day(d.d)) * TH);
         })
         .attr('width', w)
-        .attr('height', 20);
+        .attr('height', 10);
 
 
     chart.selectAll('text.day-label')
@@ -194,7 +194,7 @@ function load() {
           return 10;
         })
         .attr('y', function(d) {
-            return (wkscale(d3.time.day(d.d)) * TH) + 14;
+            return (wkscale(d3.time.day(d.d)) * TH) + 10;
         })
         .text(function(d) {
             return day_format(d.d);
