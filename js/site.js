@@ -74,7 +74,7 @@ function load() {
             d3.time.hour(d.d),
             d3.time.hour(new Date(+d.d + 60*60*1000))
           ]);
-          return ~~((wkscale(d.day) * TH) + (h(d.d) * (TH - 20)) + 20);
+          return ~~((wkscale(d.day) * TH) + (h(d.d) * (TH - 8)) + 8);
       })
       .attr('width', ~~(w/24))
       .attr('height', 2)
@@ -150,11 +150,12 @@ function load() {
           return ~~(s(d.d) * w);
         })
         .attr('y', function(d) {
-            return (wkscale(d3.time.day(d.d)) * TH) + 10;
+            return (wkscale(d3.time.day(d.d)) * TH) + 2;
         })
         .attr('width', ~~(w / 24))
-        .attr('height', 15)
+        .attr('height', 5)
 
+        /*
       chart.selectAll('text.hour-label')
         .data(hrly)
       .enter().append('svg:text')
@@ -172,6 +173,7 @@ function load() {
         .text(function(d) {
             return mtotxt(d.d);
         });
+        */
 
       chart.selectAll('rect.dailystrokes')
         .data(hrly)
@@ -183,7 +185,7 @@ function load() {
             return (wkscale(d3.time.day(d.d)) * TH);
         })
         .attr('width', w)
-        .attr('height', 10);
+        .attr('height', 2);
 
 
     chart.selectAll('text.day-label')
@@ -200,7 +202,7 @@ function load() {
             return day_format(d.d);
         });
 
-      $.ajax('https://api.github.com/users/tmcw/events?callback=test', {
+      if (false) $.ajax('https://api.github.com/users/tmcw/events?callback=test', {
           dataType: 'jsonp',
           success: function(d) {
 
@@ -222,7 +224,7 @@ function load() {
                 return ~~(s(d.d) * w);
               })
               .attr('y', function(d) {
-                  return (wkscale(d.day) * TH) + 40;
+                  return (wkscale(d.day) * TH) + 25;
               })
               .attr('width', 2)
               .attr('height', 10)
