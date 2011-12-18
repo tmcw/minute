@@ -32,6 +32,21 @@ text.day-label {
 }
 
 #keystrokes-canvas {
+  position:absolute;
+  top:90px;
+}
+
+#header {
+  padding:10px;
+}
+
+#header .keystrokes-sum, .stroke-tooltip {
+  font:bold 30px/40px 'Helvetica Neue';
+}
+
+#header .keystrokes-sum span, #header .stroke-tooltip span {
+  color:#aaa;
+  font:normal 30px/40px 'Helvetica Neue';
 }
 
 #keystrokes h4 {

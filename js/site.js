@@ -1,7 +1,7 @@
 function load() {
 
   var w = window.innerWidth - 10,
-      h = window.innerHeight - 10;
+      h = window.innerHeight - 100;
 
   var chart = d3.select('#keystrokes-canvas').append("svg:svg")
     .attr('width', w)
@@ -32,6 +32,18 @@ function load() {
       d3.min(csv, function(d) { return d.d; }),
       d3.max(csv, function(d) { return d.d; })
     ]);
+
+    d3.select('#header')
+      .append('div')
+      .attr('class', 'keystrokes-sum')
+      .text(d3.format(',')(d3.sum(csv, function(d) {
+        return d.strokes;
+      })))
+      .append('span').text(' keystrokes');
+
+    d3.select('#header')
+      .append('div')
+      .attr('class', 'stroke-tooltip');
 
     var a = d3.min(csv, function(d) { return d3.time.day(d.day); }),
         b = d3.max(csv, function(d) { return d3.time.day(d.day); });
@@ -79,20 +91,15 @@ function load() {
       .attr('width', ~~(w/24))
       .attr('height', 2)
       .on('mouseover', function(d) {
-        var h = d3.select(document.body).append('div')
-          .attr('class', 'hover-number')
-          .attr('width', 140)
-          .attr('height', 20)
-          .style('top', function() { return (d3.event.y + 9) + 'px'; })
-          .style('left', function() { return (d3.event.x - 9) + 'px'; });
-       h.append('span')
+        var h = d3.select('.stroke-tooltip')
+          .append('span')
           .attr('class', 'st')
-          .text(d.strokes);
+          .text(d3.format(',')(d.strokes));
        h.append('span')
-          .text(full_format(d.d));
+          .text('@' + full_format(d.d));
       })
       .on('mouseout', function(d) {
-        d3.select(document.body).selectAll('div.hover-number').remove();
+        d3.select('.stroke-tooltip').text('');
       });
 
       var hrly = d3.values(d3.nest()
