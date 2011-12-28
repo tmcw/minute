@@ -1,0 +1,92 @@
+body {
+  margin:0;
+  padding:0;
+  font: 12px/20px "Helvetica Neue", sans-serif;
+  background:url('lightnoise.png');
+}
+
+rect.tick-container {
+  fill:#fff;
+}
+
+rect.tick-container text {
+  fill:#333;
+}
+
+rect.strokes {
+  fill:#a50f15;
+}
+
+text {
+  font: bold 12px/20px "Helvetica Neue", monospace;
+}
+
+text.hour-label {
+  fill:#fff;
+  text-anchor:middle;
+  opacity:0.5;
+}
+
+text.day-label {
+  fill:#000;
+}
+
+#keystrokes-canvas {
+  position:absolute;
+}
+
+#keystrokes h4 {
+  text-transform:uppercase;
+  letter-spacing:3.5px;
+  border-top:1px solid #333;
+}
+
+rect.commit {
+  fill:#c40a7f;
+}
+
+text.hover {
+  font: 11px/20px "Helvetica Neue", sans-serif;
+  fill:#fff;
+}
+
+div.hover-number {
+  position:absolute;
+  background:#fff;
+  z-index:9999;
+}
+
+div.hover-number span.st {
+  font-weight:bold;
+  padding:5px;
+  margin-right:5px;
+  background:#333;
+  color:#fff;
+}
+
+#stack {
+  position:absolute;
+  top:10px;
+  left:10px;
+  color:#ef4b3e;
+}
+
+#buttons a {
+  display:block;
+  padding:5px;
+}
+
+#buttons {
+  position:absolute;
+  right:5px;
+  top:5px;
+}
+
+
+/*
+.Greys .q4-9{fill:rgb(251,106,74)}
+*/
+.Greys .q5-9{fill:rgb(239,59,44)}
+.Greys .q6-9{fill:rgb(203,24,29)}
+.Greys .q7-9{fill:rgb(165,15,21)}
+.Greys .q8-9{fill:rgb(103,0,13)}
