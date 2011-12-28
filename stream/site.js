@@ -14,6 +14,7 @@ function load() {
   // tick height
   var day_format = d3.time.format('%A');
   var full_format = d3.time.format('%I:%M %p %m/%d/%y');
+  var biminutes = 1440 / 2;
 
   function mtotxt(m) {
       var hr = parseInt(d3.time.format('%I')(m), 10);
@@ -69,7 +70,7 @@ function load() {
       })])
      .range(d3.range(2, 9));
 
-    chart.selectAll('rect.strokes')
+    chart.selectAll('rect.day')
       .data(csv)
       .enter().append('svg:rect')
       .attr('class', function(d) { return 'day q' + color(d.strokes) + '-9'; })
@@ -86,9 +87,20 @@ function load() {
       .attr('width', ~~(w/(n_days + 1)))
       .attr('height', 1);
 
-      function transitionStack() {
-        var biminutes = 1440 / 2;
+      chart.selectAll('rect.hour-line')
+      .data(d3.range(0, 24))
+      .enter().append('svg:rect')
+      .attr('class', function(d) { return 'hour-line'; })
+      .attr('x', function(d, i) {
+          return 0;
+      })
+      .attr('y', function(d) {
+        return ~~((d / 24) * h);
+      })
+      .attr('width', w)
+      .attr('height', 1);
 
+      function transitionStack() {
         chart.selectAll('rect.day')
           .transition()
             .duration(500)
@@ -104,8 +116,6 @@ function load() {
       }
 
       function transitionNormal() {
-        var biminutes = 1440 / 2;
-
         chart.selectAll('rect.day')
         .transition()
           .duration(500)

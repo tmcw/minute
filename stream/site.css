@@ -5,30 +5,8 @@ body {
   background:url('lightnoise.png');
 }
 
-rect.tick-container {
-  fill:#fff;
-}
-
-rect.tick-container text {
-  fill:#333;
-}
-
 rect.strokes {
   fill:#a50f15;
-}
-
-text {
-  font: bold 12px/20px "Helvetica Neue", monospace;
-}
-
-text.hour-label {
-  fill:#fff;
-  text-anchor:middle;
-  opacity:0.5;
-}
-
-text.day-label {
-  fill:#000;
 }
 
 #keystrokes-canvas {
@@ -50,20 +28,6 @@ text.hover {
   fill:#fff;
 }
 
-div.hover-number {
-  position:absolute;
-  background:#fff;
-  z-index:9999;
-}
-
-div.hover-number span.st {
-  font-weight:bold;
-  padding:5px;
-  margin-right:5px;
-  background:#333;
-  color:#fff;
-}
-
 #stack {
   position:absolute;
   top:10px;
@@ -80,6 +44,10 @@ div.hover-number span.st {
   position:absolute;
   right:5px;
   top:5px;
+}
+
+rect.hour-line {
+  fill:#eee;
 }
 
 
