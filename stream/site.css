@@ -28,22 +28,41 @@ text.hover {
   fill:#fff;
 }
 
-#stack {
-  position:absolute;
-  top:10px;
-  left:10px;
-  color:#ef4b3e;
+
+#buttons {
+  position:fixed;
+  background:#fff;
+  right:0px;
+  top:0px;
+  padding:10px;
+}
+
+#buttons h4 {
+  display:inline;
+  padding:5px 20px;
+  font-weight:bold;
+  color:#444;
 }
 
 #buttons a {
-  display:block;
-  padding:5px;
+  text-decoration:none;
+  color:#920000;
 }
 
-#buttons {
-  position:absolute;
-  right:5px;
-  top:5px;
+#buttons a:hover {
+  text-decoration:underline;
+}
+
+#buttons #stack {
+  background:url('../css/chart.png') no-repeat;
+  padding:5px 40px 5px 30px;
+  height:40px;
+}
+
+#buttons #normal {
+  background:url('../css/blocks.png') no-repeat;
+  height:40px;
+  padding:5px 10px 5px 30px;
 }
 
 rect.hour-line {

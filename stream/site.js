@@ -103,7 +103,7 @@ function load() {
       function transitionStack() {
         chart.selectAll('rect.day')
           .transition()
-            .duration(500)
+            .duration(10)
             .delay(function(d, i) { return (i) * 10; })
             .attr("y", function(d, i) {
               var s = d3.time.scale().domain([
