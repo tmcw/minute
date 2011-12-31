@@ -49,8 +49,8 @@ function load() {
     var a = d3.min(csv, function(d) { return d3.time.day(d.day); }),
         b = d3.max(csv, function(d) { return d3.time.day(d.day); });
 
-    var n_days = d3.time.days(a, b).length + 1;
-    var wkscale = d3.time.scale().domain([a, b]).range([0, n_days -1]);
+    var n_days = d3.time.days(a, b).length;
+    var wkscale = d3.time.scale().domain([a, b]).range([0, n_days - 1]);
 
     var TH = ~~(w / n_days);
 
@@ -105,6 +105,8 @@ function load() {
           .transition()
             .duration(10)
             .delay(function(d, i) { return (i) * 10; })
+            .attr("height", 1)
+            .attr('width', w/n_days)
             .attr("y", function(d, i) {
               var s = d3.time.scale().domain([
                 d3.time.day(d.d),
@@ -120,6 +122,8 @@ function load() {
         .transition()
           .duration(500)
           .delay(function(d, i) { return (i) * 10; })
+          .attr("height", 1)
+          .attr('width', w/n_days)
           .attr("y", function(d, i) {
             var s = d3.time.scale().domain([
               d3.time.day(d.d),
@@ -129,9 +133,28 @@ function load() {
           });
       }
 
+      function transitionTime() {
+        chart.selectAll('rect.day')
+        .transition()
+          .duration(500)
+          .delay(function(d, i) { return (i) * 10; })
+          .attr("y", 0)
+          .attr("height", h)
+          .attr('width', 1)
+          .attr("x", function(d, i) {
+            return dscale(d.d) * w;
+          });
+      }
+
       d3.select('#stack').on('click', function() {
         transitionStack();
       });
+
+      d3.select('#timeflux').on('click', function() {
+        transitionTime();
+      });
+
+
 
       d3.select('#normal').on('click', function() {
         transitionNormal();
