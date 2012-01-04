@@ -1,7 +1,7 @@
 var csvglob;
 var idx = {};
-function load() {
 
+function load() {
   var w = window.innerWidth - 10,
       h = window.innerHeight - 10;
 
@@ -15,13 +15,6 @@ function load() {
   var day_format = d3.time.format('%A');
   var full_format = d3.time.format('%I:%M %p %m/%d/%y');
   var biminutes = 1440 / 2;
-
-  function mtotxt(m) {
-      var hr = parseInt(d3.time.format('%I')(m), 10);
-      var p = d3.time.format('%p')(m).toLowerCase();
-      return hr == 12 ? hr + p : hr;
-  }
-
 
   d3.csv("keystrokes.log", function(csv) {
     csv = csv.map(function(c) {
@@ -46,13 +39,19 @@ function load() {
       d3.max(csv, function(d) { return d.d; })
     ]);
 
-    var a = d3.min(csv, function(d) { return d3.time.day(d.day); }),
-        b = d3.max(csv, function(d) { return d3.time.day(d.day); });
+    var a = d3.min(csv, function(d) {
+      return d3.time.day(d.day);
+    }),
+    b = d3.max(csv, function(d) {
+      var last = d3.time.day(d.day);
+      return new Date(last.getTime() + 24*60*60*1000);
+    });
 
     var n_days = d3.time.days(a, b).length;
-    var wkscale = d3.time.scale().domain([a, b]).range([0, n_days - 1]);
 
-    var TH = ~~(w / n_days);
+    var wkscale = d3.time.scale()
+      .domain([a, b])
+      .range([0, w]);
 
     var hours = dscale.ticks(d3.time.days, 1).map(function(h) {
         var s = d3.time.scale().domain([
@@ -70,35 +69,37 @@ function load() {
       })])
      .range(d3.range(2, 9));
 
-    chart.selectAll('rect.day')
-      .data(csv)
-      .enter().append('svg:rect')
-      .attr('class', function(d) { return 'day q' + color(d.strokes) + '-9'; })
-      .attr('x', function(d, i) {
-          return ~~(wkscale(d.day) * TH);
-      })
-      .attr('y', function(d) {
-        var s = d3.time.scale().domain([
-          d3.time.day(d.d),
-          d3.time.day(new Date(+d.d + 24*60*60*1000))
-        ]);
-        return (s(d.d) * h);
-      })
-      .attr('width', ~~(w/(n_days + 1)))
-      .attr('height', 1);
-
-      chart.selectAll('rect.hour-line')
+    chart.selectAll('rect.hour-line')
       .data(d3.range(0, 24))
       .enter().append('svg:rect')
       .attr('class', function(d) { return 'hour-line'; })
       .attr('x', function(d, i) {
-          return 0;
+        return 0;
       })
       .attr('y', function(d) {
         return ~~((d / 24) * h);
       })
       .attr('width', w)
       .attr('height', 1);
+
+    chart.selectAll('rect.day')
+      .data(csv)
+      .enter().append('svg:rect')
+      .attr('class', function(d) {
+        return 'day q' + color(d.strokes) + '-9';
+      })
+      .attr('x', function(d, i) {
+          return ~~wkscale(d.day);
+      })
+      .attr('y', function(d) {
+        return d3.time.scale().domain([
+          d3.time.day(d.d),
+          d3.time.day(new Date(+d.d + 24*60*60*1000))
+        ]).range([0, h])(d.d);
+      })
+      .attr('width', ~~(w/(n_days)))
+      .attr('height', 1);
+
 
       function transitionStack() {
         chart.selectAll('rect.day')
@@ -107,6 +108,9 @@ function load() {
             .delay(function(d, i) { return (i) * 10; })
             .attr("height", 1)
             .attr('width', w/n_days)
+            .attr('x', function(d, i) {
+                return ~~wkscale(d.day);
+            })
             .attr("y", function(d, i) {
               var s = d3.time.scale().domain([
                 d3.time.day(d.d),
@@ -124,6 +128,9 @@ function load() {
           .delay(function(d, i) { return (i) * 10; })
           .attr("height", 1)
           .attr('width', w/n_days)
+          .attr('x', function(d, i) {
+              return ~~wkscale(d.day);
+          })
           .attr("y", function(d, i) {
             var s = d3.time.scale().domain([
               d3.time.day(d.d),
@@ -146,6 +153,30 @@ function load() {
           });
       }
 
+      var playerline = chart.append('svg:rect')
+        .attr('class', 'play')
+        .attr('x', 0)
+        .attr('height', 2)
+        .attr('width', w)
+        .attr('y', 100);
+
+     var playertext = chart.append('svg:text')
+        .attr('class', 'playtext')
+        .attr('x', 0)
+        .attr('y', 100);
+
+      chart.on('mousemove', function() {
+         var mousey = d3.svg.mouse(this)[1];
+         playerline
+            .attr('y', mousey);
+
+         playertext
+            .attr('y', mousey - 10)
+            .text(function() {
+                return ''; d3.time.format('%B %e')();
+            });
+      });
+
       d3.select('#stack').on('click', function() {
         transitionStack();
       });
@@ -153,8 +184,6 @@ function load() {
       d3.select('#timeflux').on('click', function() {
         transitionTime();
       });
-
-
 
       d3.select('#normal').on('click', function() {
         transitionNormal();

@@ -2,7 +2,7 @@ body {
   margin:0;
   padding:0;
   font: 12px/20px "Helvetica Neue", sans-serif;
-  background:url('lightnoise.png');
+  background:#111;
 }
 
 rect.strokes {
@@ -66,14 +66,18 @@ text.hover {
 }
 
 rect.hour-line {
-  fill:#eee;
+  fill:#110;
 }
 
+.Greys .q1-9{fill:#111;}
+.Greys .q2-9{fill:#223;}
+.Greys .q3-9{fill:#336;}
+.Greys .q4-9{fill:#457;}
+.Greys .q5-9{fill:#568;}
+.Greys .q6-9{fill:#679;}
+.Greys .q7-9{fill:#79a;}
+.Greys .q8-9{fill:#8ab;}
 
-/*
-.Greys .q4-9{fill:rgb(251,106,74)}
-*/
-.Greys .q5-9{fill:rgb(239,59,44)}
-.Greys .q6-9{fill:rgb(203,24,29)}
-.Greys .q7-9{fill:rgb(165,15,21)}
-.Greys .q8-9{fill:rgb(103,0,13)}
+.play {
+  fill:#a22;
+}
