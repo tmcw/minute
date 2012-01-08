@@ -123,7 +123,7 @@ function load() {
       function transitionNormal() {
         chart.selectAll('rect.day')
         .transition()
-          .duration(500)
+          .duration(100)
           .delay(function(d, i) { return (i) * 10; })
           .attr("height", 1)
           .attr('width', w/n_days)
@@ -142,14 +142,20 @@ function load() {
       function transitionTime() {
         chart.selectAll('rect.day')
         .transition()
-          .duration(500)
+          .duration(50)
           .delay(function(d, i) { return (i) * 10; })
-          .attr("y", 0)
-          .attr("height", h)
           .attr('width', 1)
           .attr("x", function(d, i) {
             return dscale(d.d) * w;
-          });
+          })
+          .each('end', function() {
+            d3.select(this)
+              .transition()
+              .delay(function(d, i) { return (i) * 10; })
+              .duration(500)
+              .attr("y", 0)
+              .attr("height", h);
+           });
       }
 
       var playerline = chart.append('svg:rect')
@@ -195,7 +201,6 @@ function load() {
             'thousand': 1000,
             'hundred': 100
           };
-          console.log(total_keystrokes);
           for (var i in prec) {
             if (total_keystrokes > prec[i]) {
               return Math.round(total_keystrokes / prec[i]) +
