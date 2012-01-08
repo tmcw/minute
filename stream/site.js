@@ -1,4 +1,3 @@
-var csvglob;
 var idx = {};
 
 function load() {
@@ -17,6 +16,7 @@ function load() {
   var biminutes = 1440 / 2;
 
   d3.csv("keystrokes.log", function(csv) {
+    var total_keystrokes = 0;
     csv = csv.map(function(c) {
       var dia = d3.time.day(new Date(c.minute * 1000));
       var ndia = +d3.time.day(new Date(c.minute * 1000));
@@ -25,6 +25,7 @@ function load() {
       } else {
         idx[ndia] = idx[ndia] + 1;
       }
+      total_keystrokes += parseInt(c.strokes, 10);
       return {
         d: new Date(c.minute * 1000),
         day: dia,
@@ -33,7 +34,6 @@ function load() {
       };
     });
 
-    csvglob = csv;
     var dscale = d3.time.scale().domain([
       d3.min(csv, function(d) { return d.d; }),
       d3.max(csv, function(d) { return d.d; })
@@ -99,7 +99,6 @@ function load() {
       })
       .attr('width', ~~(w/(n_days)))
       .attr('height', 1);
-
 
       function transitionStack() {
         chart.selectAll('rect.day')
@@ -173,7 +172,7 @@ function load() {
          playertext
             .attr('y', mousey - 10)
             .text(function() {
-                return ''; d3.time.format('%B %e')();
+                return ''; // d3.time.format('%B %e')();
             });
       });
 
@@ -188,5 +187,21 @@ function load() {
       d3.select('#normal').on('click', function() {
         transitionNormal();
       });
+
+      d3.select('#total_keystrokes')
+        .text(function() {
+          var prec = {
+            'million': 1000000,
+            'thousand': 1000,
+            'hundred': 100
+          };
+          console.log(total_keystrokes);
+          for (var i in prec) {
+            if (total_keystrokes > prec[i]) {
+              return Math.round(total_keystrokes / prec[i]) +
+                ' ' + i;
+            }
+          }
+        });
   });
 }

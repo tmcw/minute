@@ -3,18 +3,22 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
     <link href='css/reset.css' rel='stylesheet' type='text/css' />
-    <link href='stream/site.css' rel='stylesheet' type='text/css' />
-    <title>hi how are you?</title>
+    <link href='css/site.css' rel='stylesheet' type='text/css' />
+    <title>minute</title>
   </head>
   <body onload='javascript:load()'>
     <div id='keystrokes'>
       <div id='keystrokes-canvas'></div>
     </div>
     <div id='buttons'>
-      <h4>hi how are you?</h4>
+      <span class='logged'>
+        <span id='total_keystrokes'></span>
+        keystrokes
+      </span>
       <a href='#' id='stack'>stack</a>
       <a href='#' id='normal'>normal</a>
       <a href='#' id='timeflux'>timeflux</a>
+      <span class='about'><a href='http://macwright.org/minute'>/minute</a></span>
     </div>
     <script type="text/javascript" src="js/underscore-min.js"></script>
     <script type="text/javascript" src="js/d3.js"></script>
@@ -22,7 +26,6 @@
     <script type="text/javascript" src="js/d3.csv.js"></script>
     <script type="text/javascript" src="js/d3.time.js"></script>
     <script type="text/javascript" src="js/layout.js"></script>
-    <script type="text/javascript" src="js/stack.js"></script>
     <script type='text/javascript' src='stream/site.js'></script>
   </body>
 </html>
