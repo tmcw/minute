@@ -44,6 +44,7 @@ function draw() {
         h = window.innerHeight - 10;
       }
       if (top < 0) top = 0;
+      if (top > (h - window.innerHeight)) top = h - window.innerHeight;
       subdraw();
   }
 
@@ -56,6 +57,7 @@ function draw() {
       top += dragStart - d3.event.screenY;
       dragStart = d3.event.screenY;
       if (top < 0) top = 0;
+      if (top > (h - window.innerHeight)) top = h - window.innerHeight;
       subdraw();
   }
 
