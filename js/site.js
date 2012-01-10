@@ -1,14 +1,79 @@
 var idx = {};
+var d3_behavior_zoomDiv;
+var subdraw;
+// detect the pixels that would be scrolled by this wheel event
+function d3_behavior_zoomDelta() {
 
-function load() {
+  // mousewheel events are totally broken!
+  // https://bugs.webkit.org/show_bug.cgi?id=40441
+  // not only that, but Chrome and Safari differ in re. to acceleration!
+  if (!d3_behavior_zoomDiv) {
+    d3_behavior_zoomDiv = d3.select("body").append("div")
+        .style("visibility", "hidden")
+        .style("top", 0)
+        .style("height", 0)
+        .style("width", 0)
+        .style("overflow-y", "scroll")
+      .append("div")
+        .style("height", "2000px")
+      .node().parentNode;
+  }
+
+  var e = d3.event, delta;
+  try {
+    d3_behavior_zoomDiv.scrollTop = 1000;
+    d3_behavior_zoomDiv.dispatchEvent(e);
+    delta = 1000 - d3_behavior_zoomDiv.scrollTop;
+  } catch (error) {
+    delta = e.wheelDelta || (-e.detail * 5);
+  }
+
+  return delta * 0.005;
+}
+
+function draw() {
   var w = window.innerWidth - 10,
-      h = window.innerHeight - 10;
+      h = window.innerHeight - 10,
+      top = 0,
+      dragStart = false;
+
+  function mousewheel() {
+      h += d3_behavior_zoomDelta() * 50;
+      top += d3_behavior_zoomDelta() * 25;
+      if (h < (window.innerHeight - 10)) {
+        h = window.innerHeight - 10;
+      }
+      if (top < 0) top = 0;
+      subdraw();
+  }
+
+  function mousedown() {
+      dragStart = d3.event.screenY;
+  }
+
+  function mousemove() {
+      if (dragStart === false) return;
+      top += dragStart - d3.event.screenY;
+      dragStart = d3.event.screenY;
+      if (top < 0) top = 0;
+      subdraw();
+  }
+
+  function mouseup(e) {
+      if (top < 0) top = 0;
+      dragStart = false;
+  }
 
   var chart = d3.select('#keystrokes-canvas').append("svg:svg")
     .attr('id', 'chart')
     .attr('width', w)
     .attr('class', 'Greys')
-    .attr('height', h);
+    .attr('height', h)
+    .on('mousedown.drag', mousedown)
+    .on('mousemove.drag', mousemove)
+    .on('mouseup.drag', mouseup)
+    .on('mousewheel.zoom', mousewheel)
+    .on('DOMMouseScroll.zoom', mousewheel);
 
   // tick height
   var day_format = d3.time.format('%A');
@@ -69,36 +134,51 @@ function load() {
       })])
      .range(d3.range(2, 9));
 
-    chart.selectAll('rect.hour-line')
-      .data(d3.range(0, 24))
-      .enter().append('svg:rect')
-      .attr('class', function(d) { return 'hour-line'; })
-      .attr('x', function(d, i) {
-        return 0;
-      })
-      .attr('y', function(d) {
-        return ~~((d / 24) * h);
-      })
-      .attr('width', w)
-      .attr('height', 1);
+    var dayrect = chart.selectAll('rect.day')
+        .data(csv)
+        .enter().append('svg:rect')
+        .attr('class', function(d) {
+          return 'day q' + color(d.strokes) + '-9';
+        })
+        .attr('x', function(d, i) {
+            return ~~wkscale(d.day);
+        })
+        .attr('y', function(d) {
+          return d3.time.scale().domain([
+            d3.time.day(d.d),
+            d3.time.day(new Date(+d.d + 24*60*60*1000))
+          ]).range([0, h])(d.d);
+        })
+        .attr('width', ~~(w/(n_days)))
+        .attr('height', 1);
 
-    chart.selectAll('rect.day')
-      .data(csv)
-      .enter().append('svg:rect')
-      .attr('class', function(d) {
-        return 'day q' + color(d.strokes) + '-9';
-      })
-      .attr('x', function(d, i) {
-          return ~~wkscale(d.day);
-      })
-      .attr('y', function(d) {
+    var hrline = chart.selectAll('rect.hour-line')
+        .data(d3.range(0, 24))
+        .enter().append('svg:rect')
+        .attr('class', function(d) { return 'hour-line'; })
+        .attr('x', function(d, i) {
+          return 0;
+        })
+        .attr('y', function(d) {
+          return ~~((d / 24) * h);
+        })
+        .attr('width', w)
+        .attr('height', 1);
+
+    subdraw = function() {
+      hrline.attr('y', function(d) {
+          return ~~((d / 24) * h) - top;
+        });
+
+      dayrect.attr('y', function(d) {
         return d3.time.scale().domain([
           d3.time.day(d.d),
           d3.time.day(new Date(+d.d + 24*60*60*1000))
-        ]).range([0, h])(d.d);
-      })
-      .attr('width', ~~(w/(n_days)))
-      .attr('height', 1);
+        ]).range([0, h])(d.d) - top;
+      });
+    };
+
+    subdraw();
 
       function transitionStack() {
         chart.selectAll('rect.day')
