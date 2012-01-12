@@ -116,7 +116,7 @@ function draw() {
 
     var n_days = d3.time.days(a, b).length;
 
-    var wkscale = d3.time.scale()
+    var day = d3.time.scale()
       .domain([a, b])
       .range([0, w]);
 
@@ -136,6 +136,14 @@ function draw() {
       })])
      .range(d3.range(2, 9));
 
+   var strokes = d3.scale.sqrt()
+      .exponent(0.1)
+      .domain([d3.min(csv, function(d) {
+        return d.strokes;
+      }), d3.max(csv, function(d) {
+        return d.strokes;
+      })]);
+
     var dayrect = chart.selectAll('rect.day')
         .data(csv)
         .enter().append('svg:rect')
@@ -143,7 +151,7 @@ function draw() {
           return 'day q' + color(d.strokes) + '-9';
         })
         .attr('x', function(d, i) {
-            return ~~wkscale(d.day);
+            return ~~day(d.day);
         })
         .attr('y', function(d) {
           return d3.time.scale().domain([
@@ -151,7 +159,9 @@ function draw() {
             d3.time.day(new Date(+d.d + 24*60*60*1000))
           ]).range([0, h])(d.d);
         })
-        .attr('width', ~~(w/(n_days)))
+        .attr('width', function(d) {
+          return strokes(d.strokes) * ~~(w/(n_days));
+        })
         .attr('height', 1);
 
     var hrline = chart.selectAll('rect.hour-line')
@@ -190,7 +200,7 @@ function draw() {
             .attr("height", 1)
             .attr('width', w/n_days)
             .attr('x', function(d, i) {
-                return ~~wkscale(d.day);
+                return ~~day(d.day);
             })
             .attr("y", function(d, i) {
               var s = d3.time.scale().domain([
@@ -210,7 +220,7 @@ function draw() {
           .attr("height", 1)
           .attr('width', w/n_days)
           .attr('x', function(d, i) {
-              return ~~wkscale(d.day);
+              return ~~day(d.day);
           })
           .attr("y", function(d, i) {
             var s = d3.time.scale().domain([
