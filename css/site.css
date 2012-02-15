@@ -53,13 +53,13 @@ body {
 .Greys .q2-9{ fill:#223; }
 .Greys .q3-9{ fill:#336; }
 .Greys .q4-9{ fill:#45a; }
-.Greys .q5-9{ fill:#56b; }
-.Greys .q6-9{ fill:#69c; }
-.Greys .q7-9{ fill:#9cc; }
+.Greys .q5-9{ fill:#76e; }
+.Greys .q6-9{ fill:#99f; }
+.Greys .q7-9{ fill:#fcf; }
 .Greys .q8-9{ fill:#faf; }
 
 .play { fill:#a22; }
-rect.hour-line { fill:#110; }
+rect.hour-line { fill:#000; }
 
 .logged {
   color:#eee;
