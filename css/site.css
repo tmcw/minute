@@ -69,3 +69,17 @@ rect.hour-line { fill:#000; }
 .logged #total_keystrokes {
   font-weight:bold;
 }
+
+#intro {
+  position:absolute;
+  top:5px;
+  left:5px;
+  font-size:15px;
+  width:300px;
+  padding:5px;
+  background:#000;
+  color:#8587e2;
+}
+#intro a {
+  color:#fff;
+}
