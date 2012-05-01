@@ -11,14 +11,16 @@
     <div id='keystrokes'>
       <div id='keystrokes-canvas'></div>
     </div>
-    <div id='buttons'>
-      <span class='logged'>
-        <span id='total_keystrokes'></span>
-        keystrokes
-      </span>
-      <a href='#' id='stack'>stack</a>
-      <a href='#' id='normal'>normal</a>
-      <a href='#' id='timeflux'>timeflux</a>
+    <div id='help'>
+      <code>keystrokes.log</code> is not accessible. you'll need
+      <a href='https://github.com/tmcw/minute-agent'>minute-agent</a>
+      running to collect keystrokes, and to copy or symlink the log from
+      <code>~/Documents/minute/keystrokes.log</code> to this directory
+      in order to run the visualization.
+      See <a href='https://github.com/tmcw/minute'>the minute readme.</a>
+    </div>
+    <div id='load'>
+      <img src='css/loader.gif' />
     </div>
     <script type="text/javascript" src="js/underscore-min.js"></script>
     <script type="text/javascript" src="js/d3.js"></script>

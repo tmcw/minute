@@ -5,61 +5,29 @@ body {
   background:#010101;
 }
 
+a {
+  color:red;
+}
+
+code {
+  font-family:monospace;
+}
+
 #keystrokes-canvas {
   position:absolute;
 }
 
-#buttons {
-  position:fixed;
-  background:#25273a;
-  right:0px;
-  top:0px;
-  padding:10px;
-  opacity:0.3;
-  -webkit-transition:50ms all linear;
-}
-
-#buttons:hover { opacity:1; }
-
-#buttons h4 {
-  display:inline;
-  padding:5px 20px 5px 10px;
-  font-weight:bold;
-  color:#eee;
-}
-
-#buttons a {
-  text-decoration:none;
-  color:#ccc;
-}
-
-#buttons a:hover {
-  text-decoration:underline;
-}
-
-#buttons #stack {
-  background:url('../css/chart.png') no-repeat;
-  padding:5px 20px 5px 30px;
-  height:40px;
-}
-
-#buttons #normal {
-  background:url('../css/blocks.png') no-repeat;
-  height:40px;
-  padding:5px 10px 5px 30px;
-}
-
-.Greys .q1-9{ fill:#111; }
-.Greys .q2-9{ fill:#223; }
-.Greys .q3-9{ fill:#336; }
-.Greys .q4-9{ fill:#45a; }
-.Greys .q5-9{ fill:#56b; }
-.Greys .q6-9{ fill:#69c; }
-.Greys .q7-9{ fill:#9cc; }
-.Greys .q8-9{ fill:#faf; }
+.Greys .q1-9{ fill:#223; }
+.Greys .q2-9{ fill:#236; }
+.Greys .q3-9{ fill:#359; }
+.Greys .q4-9{ fill:#665; }
+.Greys .q5-9{ fill:#76e; }
+.Greys .q6-9{ fill:#ddf; }
+.Greys .q7-9{ fill:#eef; }
+.Greys .q8-9{ fill:#fff; }
 
 .play { fill:#a22; }
-rect.hour-line { fill:#110; }
+rect.hour-line { fill:#000; }
 
 .logged {
   color:#eee;
@@ -68,4 +36,18 @@ rect.hour-line { fill:#110; }
 
 .logged #total_keystrokes {
   font-weight:bold;
+}
+
+#help {
+  color:#444;
+  background:#eee;
+  padding:20px;
+  font: 18px/30px "Helvetica Neue", sans-serif;
+  display:none;
+}
+
+#load {
+  position:absolute;
+  left:50%;
+  top:50%;
 }
