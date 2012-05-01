@@ -26,6 +26,11 @@ code {
 .Greys .q7-9{ fill:#eef; }
 .Greys .q8-9{ fill:#fff; }
 
+rect {
+  shape-rendering: optimize-speed;
+  pointer-events: none;
+}
+
 .play { fill:#a22; }
 rect.hour-line { fill:#000; }
 
