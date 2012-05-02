@@ -1,5 +1,7 @@
 ## minute
 
+![](http://macwright.org/graphics/minute_new.png)
+
 One of many possibilities for a personal statistics dashboard. Currently
 it works with [minute-agent](https://github.com/tmcw/minute-agent), my
 Cocoa keycounter application to show off keystrokes. It's a work in progress.
