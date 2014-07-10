@@ -24,7 +24,7 @@ To have continuously updating version, link the two:
 
 ## Variations
 
-`index_canvas.html` contains a reimplementation of `index.html` that does
+`basic-canvas.html` contains a reimplementation of `index.html` that does
 drawing in Canvas. This is mainly due to me testing in Google Chrome 'Canary',
 which has a subpar SVG implementation. The canvas render version is lightning-fast
 in Safari.
