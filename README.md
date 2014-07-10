@@ -13,17 +13,7 @@ with just a quick hint of jQuery to tie things together.
 
 [Install minute-agent](https://github.com/tmcw/minute-agent).
 
-Download or git clone this repository into a web-accessible directory.
-On a Mac, the easiest one to use is `~/Sites`, and you'll need to
-enable 'Web Sharing' in `System Preferences -> Sharing` to make
-that work.
-
-Now you'll need to know your username/short username in OSX.
-If you don't know this, open a Terminal window, and type
-`whoami`.
-
-Go to `http://localhost/~yourusername/minute/` and you should
-get a blank page with an error message.
+Download or git clone this repository into any directory you want (for example: `~/Sites/minute`). From that directory run `python -m SimpleHTTPServer 8888`. Now simply point your browser at `http://localhost:8888` and you should get a blank page with an error message.
 
 To visualize a snapshot of your keystrokes, _copy_ `keystrokes.log`
 from `~/Documents/minute/keystrokes.log` to `~/Sites/minute/keystrokes.log`.
