@@ -7,7 +7,20 @@
     <link rel="icon" type="image/png" href="favicon.png">
     <title>minute</title>
   </head>
-  <body onload='javascript:draw()'>
+  <body onload='javascript:minute.draw()'>
+    <div id='menu'>
+      <ul>
+        <li>
+          <a onclick="minute.changeView('basic')">Basic</a>
+        </li>
+        <li>
+          <a onclick="minute.changeView('sleep')">Sleep</a>
+        </li>
+        <li>
+          <a onclick="minute.changeView('weekgram')">Weekgram</a>
+        </li>
+      </ul>
+    </div>
     <div id='keystrokes'>
       <div id='keystrokes-canvas'></div>
     </div>
@@ -25,7 +38,9 @@
     <script type="text/javascript" src="js/underscore-min.js"></script>
     <script type="text/javascript" src="js/d3.v2.min.js"></script>
     <script type="text/javascript" src="js/jquery.js"></script>
-    <script type="text/javascript" src="js/layout.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
     <script type='text/javascript' src='js/basic.js'></script>
+    <script type='text/javascript' src='js/sleep.js'></script>
+    <script type='text/javascript' src='js/weekgram.js'></script>
   </body>
 </html>
