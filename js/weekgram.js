@@ -79,16 +79,3 @@ function draw() {
 
   });
 }
-
-
-// var Canvas = require('canvas'),
-//     fs = require('fs');
-
-// var keystrokes = fs.readFileSync('../keystrokes_all.log', 'utf8');
-// var lines = keystrokes.split('\n').slice(1);
-
-// var width = 1024, height = 768;
-
-
-
-// fs.writeFileSync('sleep_new.png', c.toBuffer());
