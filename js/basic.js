@@ -15,11 +15,9 @@ minute.views.basic = function(csv, lines, w, h, top){
   var full_format = d3.time.format('%I:%M %p %m/%d/%y');
   var biminutes = 1440 / 2;
     
-  var total_keystrokes = 0;
   csv = csv.map(function(c) {
     var d = new Date(c.minute * 1000);
     var day = d3.time.day(d);
-    total_keystrokes += parseInt(c.strokes, 10);
     return {
       d: d,
       day: day,
@@ -64,7 +62,7 @@ minute.views.basic = function(csv, lines, w, h, top){
   })])
   .range(d3.range(2, 9));
 
-  var dayscale = d3.time.scale().range([0, h - top]);
+  var dayscale = d3.time.scale().range([0, h]);
 
   var dayrect = chart.selectAll('rect.day')
     .data(csv)
@@ -84,19 +82,5 @@ minute.views.basic = function(csv, lines, w, h, top){
           d.day,
           d3.time.day.offset(new Date(d.day.getTime()), 1)
       ])(d.d);
-  });
-
-  d3.select('#total_keystrokes')
-  .text(function() {
-    var prec = {
-      'million': 1000000,
-      'thousand': 1000,
-      'hundred': 100
-    };
-    for (var i in prec) {
-      if (total_keystrokes > prec[i]) {
-        return Math.round(total_keystrokes / prec[i]) + ' ' + i;
-      }
-    }
   });
 }
