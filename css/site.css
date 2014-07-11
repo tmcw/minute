@@ -5,8 +5,8 @@ body {
   background:#010101;
 }
 
-a {
-  color:red;
+.selected {
+  color: #2222aa;
 }
 
 code {
@@ -58,10 +58,13 @@ rect.hour-line { fill:#000; }
 }
 
 ul{
-  height: 35px;
+  color:#777777;
+  height: 26px;
   overflow: auto;
   background-color: #efefef;
   list-style-type: none;
+  padding: 5px;
+  text-transform: uppercase;
 }
 
 li{

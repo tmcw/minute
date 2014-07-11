@@ -45,8 +45,8 @@ minute.draw = function(){
 	else{
 		minute.wrapDom.innerHTML = "<div id='keystrokes-canvas'></div>";
 		var w = window.innerWidth,
-  	h = window.innerHeight-35,
-  	top = 35;
+  		h = window.innerHeight-24,
+  		top = 24;
 
 		minute.views[minute.view](minute.csv, minute.lines, w, h, top);
 		minute.timeout = setTimeout(minute.draw, twoMinutes);
@@ -55,6 +55,8 @@ minute.draw = function(){
 }
 
 minute.changeView = function(view){
+	d3.select("#"+minute.view+"-button").node().classList.remove("selected");
 	minute.view = view;
+	d3.select("#"+minute.view+"-button").node().classList.add("selected");
 	minute.draw();
 }

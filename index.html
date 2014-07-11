@@ -7,16 +7,16 @@
     <link rel="icon" type="image/png" href="favicon.png">
     <title>minute</title>
   </head>
-  <body onload='javascript:minute.draw()'>
+  <body onload='javascript:minute.start()'>
     <div id='menu'>
       <ul>
-        <li>
+        <li id="basic-button">
           <a onclick="minute.changeView('basic')">Basic</a>
         </li>
-        <li>
+        <li id="sleep-button">
           <a onclick="minute.changeView('sleep')">Sleep</a>
         </li>
-        <li>
+        <li id="weekgram-button">
           <a onclick="minute.changeView('weekgram')">Weekgram</a>
         </li>
       </ul>
