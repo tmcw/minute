@@ -1,8 +1,6 @@
 window.minute = window.minute || {views:{}};
 
 minute.views.basic = function(csv, lines, w, h, top){
-  
-  var dragStart = false;
 
   var chart = d3.select('#keystrokes-canvas').append("svg:svg")
   .attr('id', 'chart')
