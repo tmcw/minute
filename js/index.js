@@ -9,6 +9,11 @@ minute.timeout = null;
 minute.loadingDom = d3.select('#load').node();
 minute.wrapDom = document.getElementById("keystrokes");
 
+minute.start = function(){
+	var view = window.localStorage === undefined ? 'basic' : (window.localStorage.getItem("view") || 'basic');
+	minute.changeView(view);
+}
+
 minute.gather = function(cb){
 	minute.loadingDom.style.visibility = "visible";
 	d3.csv("keystrokes.log", function(csv) {
@@ -59,4 +64,8 @@ minute.changeView = function(view){
 	minute.view = view;
 	d3.select("#"+minute.view+"-button").node().classList.add("selected");
 	minute.draw();
+
+	if(window.localStorage){
+		window.localStorage.setItem("view", view);
+	}
 }
