@@ -50,8 +50,8 @@ minute.draw = function(){
 	else{
 		minute.wrapDom.innerHTML = "<div id='keystrokes-canvas'></div>";
 		var w = window.innerWidth,
-  		h = window.innerHeight-24,
-  		top = 24;
+  		h = window.innerHeight-36,
+  		top = 36;
 
 		minute.views[minute.view](minute.csv, minute.lines, w, h, top);
 		minute.timeout = setTimeout(minute.draw, twoMinutes);
