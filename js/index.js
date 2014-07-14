@@ -59,6 +59,8 @@ minute.draw = function(){
 
 }
 
+window.onresize = minute.draw;
+
 minute.changeView = function(view){
 	d3.select("#"+minute.view+"-button").node().classList.remove("selected");
 	minute.view = view;
